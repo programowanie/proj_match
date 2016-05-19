@@ -7,7 +7,6 @@ Konstruktor tworzy obiekty piłkarzy, którzy dostają od 60 do 90 następujący
 
 - obrony podania,
 - obrony dryblingu,
-- obrony na bramce,
 - strzał na bramkę (z pewnym prawdopodobieństwem trafienia w bramkę), 
 - podania, 
 - dryblingu.
@@ -19,13 +18,13 @@ Po pokonaniu ostatniego zawodnika z pola, zawodnik może podać lub strzelić, p
 
 Następuje strzał w światło lub nie. 
 
-W 1 przypadku jeśli bramkarz broni wybiera się drużynę, która zaczyna od swojej bramki (zależne od parametrów napastnika i bramkarza – losowanie następuje dlatego, żeby uwzględnić rzut rożny).
+Po strzale zaczyna druzyna przeciwna.
 
-W 2 przypadku zaczyna drużyna broniąca się.
 Gra toczy się do momentu wykonania n akcji, gdzie akcja to podanie strzał itp.
 
 Elementy, które zrobiłbym jeśli poszło by szybko z fazą opisana powyżej.
 
 - zmiana zawodników z ławki
+-bramkarz
 
 
