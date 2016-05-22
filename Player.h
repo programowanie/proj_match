@@ -10,7 +10,7 @@ using namespace std;
 class Player
 {
 
-	static int _counter;
+
 	static vector <string> names_CFC;
 	static vector <string> names_FCB;
 	string _name;
@@ -18,18 +18,24 @@ class Player
 	int _defPass,	_defDribble;
 	static void init_FCB();
 	static void init_CFC();
-	
+	static int _counter;
 
 	public:
 		Player(int team);
 		//~PLayer();
+		static void counterPlus(){	_counter++;	}
+		static int counter(){return _counter;}
+		bool PassOrDribble();
 		int pass() {return _pass;}
 		int dribble() {return _dribble;}
 		int shot() {return _shot;}
 		int defPass() {return _defPass;}
 		int defDribble() {return _defDribble;}
-		int counter(){return _counter;}
-		void counterPus(){	_counter++;	}
+		string name(){return _name;}
+
+		
+		
+		
 
 		string description();
 

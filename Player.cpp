@@ -34,7 +34,7 @@ int randomValue()
 
 Player::Player(int team)
 {
-
+	
 	if(team==1)
 	{
 
@@ -45,9 +45,11 @@ Player::Player(int team)
 
 		while(1){
 			int amount =rand() % amountOfNames;
-			if(tab[amount]==0){
+			if(tab[amount]==0)
+			{
 				_name = names_CFC[amount];
-			break;	
+				tab[amount]=1;
+				break;	
 			}
 		}
 	 	_pass= randomValue();
@@ -60,12 +62,16 @@ Player::Player(int team)
 	{
 		static int amountOfNames = (init_FCB() , names_FCB.size());
 		static bool *tab=new bool[names_FCB.size()];
-		int amount =rand() % amountOfNames;
+		for(int i=0;i<names_FCB.size();i++) tab[i]=0;
+		
 
 		while(1){
-			if(tab[amount]==0){
+			int amount =rand() % amountOfNames;
+			if(tab[amount]==0)
+			{
 				_name = names_FCB[amount];
-			break;	
+				tab[amount]=1;
+				break;	
 			}
 		}
 		_pass= randomValue();
@@ -88,4 +94,26 @@ string Player::description()
 	" Dribble defence: " + to_string(_defDribble) + 
 		"\n\t pass: " + to_string(_pass) + 
 		"\n\t dribble " + to_string(_dribble);
+}
+
+bool Player::PassOrDribble()  //zwraca 1 gdy podaje, 0 gdy drybluje
+{
+	int sum=_dribble+_pass;
+	bool *tab= new bool[sum];
+	for (int i=0;i<_dribble;i++)
+	{
+		tab[i]==0;	//dribble probability
+	}
+	for(int i=_dribble;i<sum;i++)
+	{
+		tab[i]=1;	//pass probability
+	}
+
+	int returned= tab[rand()%sum];
+	
+
+	delete [] tab;
+	tab=NULL;
+
+	return returned;
 }
