@@ -5,10 +5,12 @@
 
 using namespace std;
 
+
+
 class Player
 {
 
-	static int counter;
+	static int _counter;
 	static vector <string> names_CFC;
 	static vector <string> names_FCB;
 	string _name;
@@ -26,7 +28,8 @@ class Player
 		int shot() {return _shot;}
 		int defPass() {return _defPass;}
 		int defDribble() {return _defDribble;}
-
+		int counter(){return _counter;}
+		void counterPus(){	_counter++;	}
 
 		string description();
 
