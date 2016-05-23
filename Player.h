@@ -19,6 +19,7 @@ class Player
 	static void init_FCB();
 	static void init_CFC();
 	static int _counter;
+	int _goals;
 
 	public:
 		Player(int team);
@@ -32,6 +33,9 @@ class Player
 		int defPass() {return _defPass;}
 		int defDribble() {return _defDribble;}
 		string name(){return _name;}
+		void goalsPlus(){_goals++;}
+		int goals(){return _goals;}
+
 
 		
 		

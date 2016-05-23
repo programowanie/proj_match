@@ -29,7 +29,7 @@ void Player::init_FCB()
 
 int randomValue()
 {
-	return 50 + rand() % 49;	
+	return 30 + rand() % 49;	
 }
 
 Player::Player(int team)
@@ -40,7 +40,7 @@ Player::Player(int team)
 
 		static int amountOfNames = (init_CFC() , names_CFC.size());
 		static bool *tab=new bool[names_CFC.size()];
-		for(int i=0;i<names_CFC.size();i++) tab[i]=0;
+		
 		
 
 		while(1){
@@ -48,7 +48,7 @@ Player::Player(int team)
 			if(tab[amount]==0)
 			{
 				_name = names_CFC[amount];
-				tab[amount]=1;
+				tab[amount]+=1;
 				break;	
 			}
 		}
@@ -56,13 +56,15 @@ Player::Player(int team)
 	 	_defPass= randomValue();
 	 	_defDribble= randomValue();
 	 	_shot= randomValue();
-	 	_dribble= randomValue();	
+	 	_dribble= randomValue();
+	 	_goals=0;	
+	 	
 	}
 	else if(team==2)
 	{
 		static int amountOfNames = (init_FCB() , names_FCB.size());
 		static bool *tab=new bool[names_FCB.size()];
-		for(int i=0;i<names_FCB.size();i++) tab[i]=0;
+		
 		
 
 		while(1){
@@ -70,7 +72,7 @@ Player::Player(int team)
 			if(tab[amount]==0)
 			{
 				_name = names_FCB[amount];
-				tab[amount]=1;
+				tab[amount]+=1;
 				break;	
 			}
 		}
@@ -79,6 +81,7 @@ Player::Player(int team)
 	 	_defDribble= randomValue();
 		_shot= randomValue();
 		_dribble= randomValue();
+		_goals=0;
 	}
 	else cout<<"<Blad konstruktora>"<<endl;
 	
@@ -108,12 +111,13 @@ bool Player::PassOrDribble()  //zwraca 1 gdy podaje, 0 gdy drybluje
 	{
 		tab[i]=1;	//pass probability
 	}
-
+	for(int i=0;i<sum;i++) cout<<tab[i]<<" ";	//	CZEMU WYSWIETLA INNE LICZBY ? I ZŁE ILOSC?
+		cout<<endl;
 	int returned= tab[rand()%sum];
 	
 
-	delete [] tab;
-	tab=NULL;
+	//delete [] tab;
+	//tab=NULL;
 
 	return returned;
 }
