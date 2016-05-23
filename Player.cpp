@@ -111,8 +111,8 @@ bool Player::PassOrDribble()  //zwraca 1 gdy podaje, 0 gdy drybluje
 	{
 		tab[i]=1;	//pass probability
 	}
-	for(int i=0;i<sum;i++) cout<<tab[i]<<" ";	//	CZEMU WYSWIETLA INNE LICZBY ? I ZŁE ILOSC?
-		cout<<endl;
+	//for(int i=0;i<sum;i++) cout<<tab[i]<<" ";	//	CZEMU WYSWIETLA INNE LICZBY ? I ZŁE ILOSC?
+	//	cout<<endl;
 	int returned= tab[rand()%sum];
 	
 

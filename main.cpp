@@ -10,7 +10,8 @@ using namespace std;
 
 
 bool didWin(int attack,int defence);
-
+void actions(vector<Player>&vecA,vector<Player>&vecD,int &whoAttacks,int &passes,
+	int &dribles,int &ScoreA,int sizeOfTeam,Player &help);
 int Player::_counter=0;
 
 int main(int argc, char const *argv[])
@@ -43,41 +44,93 @@ int main(int argc, char const *argv[])
 	do{
 		if(whoAttacks==1)		//atakuje CFC
 		{
-			for(int i=0;i<sizeOfTeam+1;i++)		// +1 żeby zakończyć strzałem lub pudłem
+			actions(vecCFC,vecFCB,whoAttacks,passes,dribles, ScoreCFC,sizeOfTeam,help);
+			
+			
+
+		}
+		else		//atakuje FCB
+		{
+			actions(vecFCB,vecCFC,whoAttacks,passes,dribles, ScoreFCB,sizeOfTeam,help);
+			
+			
+
+		}
+
+	}while(Player::counter()<countdown);
+
+
+	cout<<"\n\t\t\t\t\tWynik meczu:\n\t\t\t\t\tCFC "<<ScoreCFC<<":"<<ScoreFCB<<" FCB\n\n";
+	cout<<"\t\t\t\t\t    Składy:\n\t\t\t\t Chlesea\n";
+	for (int i=0;i<sizeOfTeam;i++)
+	{
+		cout<<"\t\t\t\t"<<vecCFC[i].goals() <<" "<<vecCFC[i].name()<<endl;
+	}
+	cout<<"\t\t\t\t Barca\n";
+	for(int i=0;i<sizeOfTeam;i++)
+	{
+		cout<<"\t\t\t\t"<<vecFCB[i].goals()<<" "<<vecFCB[i].name()<<endl;
+	}
+
+	cout<<"passes: "<<passes<<" i dribles "<<dribles<<"!\n";
+
+
+
+
+/*
+	cout<<"\n\t\t\t\t\tStatystyki:\n";
+	for(int i=0;i<sizeOfTeam;i++)
+	{
+		cout<<vecCFC[i].description()<<endl;
+	}
+	for(int i=0;i<sizeOfTeam;i++)
+	{
+		cout<<vecFCB[i].description()<<endl;
+	}
+*/
+
+}
+
+void actions(vector<Player>&vecA,vector<Player>&vecD,int &whoAttacks,int &passes,
+	int &dribles,int &ScoreA,int sizeOfTeam,Player &help)
+{
+	
+	for(int i=0;i<sizeOfTeam+1;i++)		// +1 żeby zakończyć strzałem lub pudłem
 			{
 				if(i<sizeOfTeam-1)					//jesli ma komu podac
-				{	if((vecCFC[i]).PassOrDribble())
+				{	if((vecA[i]).PassOrDribble())
 					{
 						//zawodnik podaje
 
-						if( ! didWin(	(vecCFC[i]).pass(),(vecFCB[i]).defPass()	)  )
+						if( ! didWin(	(vecA[i]).pass(),(vecD[i]).defPass()	)  )
 						{
-							cout<<"\t "<<(vecFCB[i].name())<<" przejal pilke od "
-								<<(vecCFC[i]).name() <<"\n";
-							whoAttacks=0;
+							cout<<"\t "<<(vecD[i].name())<<" przejal pilke od "
+								<<(vecA[i]).name() <<"\n";
+							whoAttacks=!whoAttacks;
 							break;	
 						} 
-						cout<<(vecCFC[i]).name()<<" podaje do "<< (vecCFC[i+1]).name()<<"\n";
+						cout<<(vecA[i]).name()<<" podaje do "<< (vecA[i+1]).name()<<"\n";
 						passes++;
 					}
 					else
 					{
 						//zawodnik drybluje
-						if(! didWin(	(vecCFC[i]).dribble(),(vecFCB[i]).defDribble())	)
+						if(! didWin(	(vecA[i]).dribble(),(vecD[i]).defDribble())	)
 						{
-							cout<<"\t "<<(vecFCB[i]).name()<<" przejal pilke od "
-								<<(vecCFC[i]).name()<<"\n";
-							whoAttacks=0;
+							cout<<"\t "<<(vecD[i]).name()<<" przejal pilke od "
+								<<(vecA[i]).name()<<"\n";
+							whoAttacks=!whoAttacks;
 							break;
 						}
-						cout<<(vecCFC[i]).name()<<" mija "<<(vecFCB[i]).name()
+						cout<<(vecA[i]).name()<<" mija "<<(vecD[i]).name()
 							<<" dryblingiem"<<"\n";
 							dribles++;
 						if(i!=sizeOfTeam-1)	//gdy drybluje to idzie na kolejnego zawodnika
 						{
-							help=vecCFC[i];
-							vecCFC[i]=vecCFC[i+1];
-							vecCFC[i+1]=help;	
+	
+							help=vecA[i];
+							vecA[i]=vecA[i+1];
+							vecA[i+1]=help;	
 						}
 						
 					}
@@ -88,35 +141,36 @@ int main(int argc, char const *argv[])
 					if(i==sizeOfTeam-1)	// jesli nie ma komu podac
 					{
 						//zawodnik drybluje
-						if(! didWin(	(vecCFC[i]).dribble(),(vecFCB[i]).defDribble())	)
+						if(! didWin(	(vecA[i]).dribble(),(vecD[i]).defDribble())	)
 						{
-							cout<<"\t "<<(vecFCB[i]).name()<<" przejal pilke od "
-								<<(vecCFC[i]).name()<<"\n";
-							whoAttacks=0;
+							cout<<"\t "<<(vecD[i]).name()<<" przejal pilke od "
+								<<(vecA[i]).name()<<"\n";
+							whoAttacks=!whoAttacks;
 							break;
 						}
-						cout<<(vecCFC[i]).name()<<" mija "<<(vecFCB[i]).name()
+						cout<<(vecA[i]).name()<<" mija "<<(vecD[i]).name()
 							<<" dryblingiem"<<"\n";
 							dribles++;
 						if(i!=sizeOfTeam-1)	//gdy drybluje to idzie na kolejnego zawodnika
 						{
-							help=vecCFC[i];
-							vecCFC[i]=vecCFC[i+1];
-							vecCFC[i+1]=help;	
+							
+							help=vecA[i];
+							vecA[i]=vecA[i+1];
+							vecA[i+1]=help;	
 						}
 					}
 					else if(i==sizeOfTeam)  //jesli strzela
 					{
-						if(! didWin( (vecCFC[i-1]).shot() ,(100-(vecCFC[i-1]).shot())	)	)
+						if(! didWin( (vecA[i-1]).shot() ,(100-(vecA[i-1]).shot())	)	)
 						{
-							cout<<(vecCFC[i-1]).name()<<" pudluje! "<<"\n";
-							whoAttacks=0;
+							cout<<"\t"<<(vecA[i-1]).name()<<" pudluje! "<<"\n";
+							whoAttacks=!whoAttacks;
 							break;
 						}
-						cout<<(vecCFC[i-1]).name()<<" strzela gola! "<<"\n";
-						whoAttacks=0;
-						vecCFC[i-1].goalsPlus();
-						ScoreCFC++;
+						cout<<"\t"<<(vecA[i-1]).name()<<" strzela gola! "<<"\n";
+						whoAttacks=!whoAttacks;
+						vecA[i-1].goalsPlus();
+						ScoreA++;
 
 					}
 				}
@@ -124,126 +178,14 @@ int main(int argc, char const *argv[])
 			}
 			
 
-		}
-		else		//atakuje FCB
-		{
-			for(int i=0;i<sizeOfTeam+1;i++)		// +1 żeby zakończyć strzałem lub pudłem
-			{
-				if(i<sizeOfTeam-1)					//jesli ma komu podac
-				{	if((vecFCB[i]).PassOrDribble())
-					{
-						//zawodnik podaje
-						if( ! didWin(	(vecFCB[i]).pass(),(vecCFC[i]).defPass()	)  )
-						{
-							cout<<"\t "<<(vecCFC[i].name())<<" przejal pilke od "
-								<<(vecFCB[i]).name() <<"\n";
-							whoAttacks=1;
-							break;	
-						} 
-						cout<<"\t\t"<<(vecFCB[i]).name()<<" podaje do "<< (vecFCB[i+1]).name()<<"\n";
-						passes++;
-					}
-					else
-					{
-						//zawodnik drybluje
-						if(! didWin(	(vecFCB[i]).dribble(),(vecCFC[i]).defDribble())	)
-						{
-							cout<<"\t "<<(vecCFC[i]).name()<<" przejal pilke od "
-								<<(vecFCB[i]).name()<<"\n";
-							whoAttacks=1;
-							break;
-						}
-						cout<<"\t\t"<<(vecFCB[i]).name()<<" mija "<<(vecCFC[i]).name()
-							<<" dryblingiem"<<"\n";
-							dribles++;
-						if(i!=sizeOfTeam-1)	//gdy drybluje to idzie na kolejnego zawodnika
-						{
-							help=vecFCB[i];
-							vecFCB[i]=vecFCB[i+1];
-							vecFCB[i+1]=help;	
-						}
-					}
-
-				}
-				else //jeesli nie ma komu podac to albo musi kiwac albo strzelac
-				{	
-					if(i==sizeOfTeam-1)	// jesli nie ma komu podac
-					{
-						//zawodnik drybluje
-						if(! didWin(	(vecFCB[i]).dribble(),(vecCFC[i]).defDribble())	)
-						{
-							cout<<"\t "<<(vecCFC[i]).name()<<" przejal pilke od "
-								<<(vecFCB[i]).name()<<"\n";
-							whoAttacks=1;
-							break;
-						}
-						cout<<"\t\t"<<(vecFCB[i]).name()<<" mija "<<(vecCFC[i]).name()
-							<<" dryblingiem"<<"\n";
-							dribles++;
-						if(i!=sizeOfTeam-1)	//gdy drybluje to idzie na kolejnego zawodnika
-						{
-							help=vecFCB[i];
-							vecFCB[i]=vecFCB[i+1];
-							vecFCB[i+1]=help;	
-						}
-					}
-					else if(i==sizeOfTeam)  //jesli strzela
-					{
-						if(! didWin( (vecFCB[i-1]).shot() ,(100-(vecFCB[i-1]).shot())	)	)
-						{
-							cout<<(vecFCB[i-1]).name()<<" pudluje! "<<"\n";
-							whoAttacks=1;
-							break;
-						}
-						cout<<"\t\t"<<(vecFCB[i-1]).name()<<" strzela gola! "<<"\n";
-						vecFCB[i-1].goalsPlus();
-						whoAttacks=1;
-						ScoreFCB++;
-					}
-				}
-
-			}
-			
-
-		}
-
-
-
-
-	}while(Player::counter()<countdown);
-cout<<"\n\t\t\t\t\tWynik meczu:\n\t\t\t\t\tCFC "<<ScoreCFC<<":"<<ScoreFCB<<" FCB\n\n";
-cout<<"\t\t\t\t\t    Składy:\n\t\t\t\t Chlesea\n";
-for (int i=0;i<sizeOfTeam;i++)
-{
-	cout<<"\t\t\t\t"<<vecCFC[i].goals() <<" "<<vecCFC[i].name()<<endl;
-}
-cout<<"\t\t\t\t Barca\n";
-for(int i=0;i<sizeOfTeam;i++)
-{
-	cout<<"\t\t\t\t"<<vecFCB[i].goals()<<" "<<vecFCB[i].name()<<endl;
 }
 
-cout<<"passes: "<<passes<<" i dribles "<<dribles<<"!\n";
-
-
-
-
-
-cout<<"\n\t\t\t\t\tStatystyki:\n";
-for(int i=0;i<sizeOfTeam;i++)
-{
-	cout<<vecCFC[i].description()<<endl;
-}
-for(int i=0;i<sizeOfTeam;i++)
-{
-	cout<<vecFCB[i].description()<<endl;
-}
-}
 
 bool didWin(int attack, int defence)
 {
 	Player::counterPlus();
 	//Player::_counter++;
+	cout<<"\n"<<Player::counter()<<endl;
 	int sum=attack+defence;
 
 	bool *tab= new bool[sum];
