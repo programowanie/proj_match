@@ -106,6 +106,9 @@ void actions(vector<Player>&vecA,vector<Player>&vecD,int &whoAttacks,int &passes
 						{
 							cout<<"\t "<<(vecD[i].name())<<" przejal pilke od "
 								<<(vecA[i]).name() <<"\n";
+							help=vecD[i];
+							vecD[i]=vecD[0];
+							vecD[0]=help;	
 							whoAttacks=!whoAttacks;
 							break;	
 						} 
@@ -119,6 +122,9 @@ void actions(vector<Player>&vecA,vector<Player>&vecD,int &whoAttacks,int &passes
 						{
 							cout<<"\t "<<(vecD[i]).name()<<" przejal pilke od "
 								<<(vecA[i]).name()<<"\n";
+							help=vecD[i];
+							vecD[i]=vecD[0];
+							vecD[0]=help;
 							whoAttacks=!whoAttacks;
 							break;
 						}
@@ -145,6 +151,9 @@ void actions(vector<Player>&vecA,vector<Player>&vecD,int &whoAttacks,int &passes
 						{
 							cout<<"\t "<<(vecD[i]).name()<<" przejal pilke od "
 								<<(vecA[i]).name()<<"\n";
+							help=vecD[i];
+							vecD[i]=vecD[0];
+							vecD[0]=help;
 							whoAttacks=!whoAttacks;
 							break;
 						}
