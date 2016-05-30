@@ -4,14 +4,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <unistd.h>
 
 
 using namespace std;
 
 
 bool didWin(int attack,int defence);
-void actions(vector<Player>&vecA,vector<Player>&vecD,int &whoAttacks,int &passes,
+void actions(vector<Player>&vecA,vector<Player>&vecD,bool &whoAttacks,int &passes,
 	int &dribles,int &ScoreA,int sizeOfTeam,Player &help);
+
+#define MINUTE_INTERVAL 1500000
+
 int Player::_counter=0;
 
 int main(int argc, char const *argv[])
@@ -37,7 +41,7 @@ int main(int argc, char const *argv[])
 
 							//mecz
 	
-	int whoAttacks=rand()%2 +1;
+	bool whoAttacks=rand()%2 +1;
 	int ScoreCFC=0,ScoreFCB=0;
 	int dribles=0,passes=0;
 	Player help(1);
@@ -91,12 +95,12 @@ int main(int argc, char const *argv[])
 
 }
 
-void actions(vector<Player>&vecA,vector<Player>&vecD,int &whoAttacks,int &passes,
+void actions(vector<Player>&vecA,vector<Player>&vecD,bool &whoAttacks,int &passes,
 	int &dribles,int &ScoreA,int sizeOfTeam,Player &help)
 {
 	
 	for(int i=0;i<sizeOfTeam+1;i++)		// +1 żeby zakończyć strzałem lub pudłem
-			{
+			{usleep(MINUTE_INTERVAL);
 				if(i<sizeOfTeam-1)					//jesli ma komu podac
 				{	if((vecA[i]).PassOrDribble())
 					{
